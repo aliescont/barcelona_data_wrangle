@@ -1,6 +1,5 @@
 import re
 
-
 test = ['08012','28038', '08012 Barcelona', '28239']
 
 def update_postcode(postcode):
@@ -17,7 +16,7 @@ def update_postcode(postcode):
 for item in test:
     cleaned = update_postcode(item)
     print cleaned
-
+#Above function shows AttributeError: 'NoneType' object has no attribute 'group' when it runs to complete datase, but works fine with sample
 
 test = ['08012','28038', '08012 Barcelona', '28239']
 def update_postcode(postcode):
@@ -36,6 +35,6 @@ for item in test:
     cleaned = update_postcode(item)
     print cleaned
 
-
+#Still getting same error
 
 
