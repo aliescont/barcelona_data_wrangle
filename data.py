@@ -160,7 +160,7 @@ def load_new_tag(element, secondary, default_tag_type):
         new['type'] = secondary.attrib['k'][:post_colon - 1]
         new['value'] = secondary.attrib['v']
     
-    print secondary.attrib['v']
+    print (secondary.attrib['v'])
     
     return new
 
@@ -230,12 +230,12 @@ def shape_element(element, node_attr_fields=NODE_FIELDS, way_attr_fields=WAY_FIE
                     if child.attrib['k'] == 'addr:street':
                         
                         way_tag['value'] = update_name(child.attrib['v'], mapping)
-                        print way_tag['value']
+                        print (way_tag['value'])
                         
                     if child.attrib['k'] == 'addr:postcode':
                         # clean the 'v' attribute (i.e. the value)
                         way_tag["value"] = update_postcode(child.attrib["v"])
-                        print way_tag['value']
+                        print (way_tag['value'])
                     else:
                         way_tag['value'] = child.attrib['v']
                     tags.append(way_tag)
@@ -278,7 +278,7 @@ def get_element(osm_file, tags=('node', 'way', 'relation')):
 def validate_element(element, validator, schema=SCHEMA):
     """Raise ValidationError if element does not match schema"""
     if validator.validate(element, schema) is not True:
-        field, errors = next(validator.errors.iteritems())
+        field, errors = next(validator.errors.items())
         message_string = "\nElement of type '{0}' has the following errors:\n{1}"
         error_string = pprint.pformat(errors)
         
@@ -290,7 +290,8 @@ class UnicodeDictWriter(csv.DictWriter, object):
 
     def writerow(self, row):
         super(UnicodeDictWriter, self).writerow({
-            k: (v.encode('utf-8') if isinstance(v, unicode) else v) for k, v in row.iteritems()
+            k: (v.encode('utf-8') if isinstance(v, str) else v) for k, v in row.items()
+        
         })
 
     def writerows(self, rows):
