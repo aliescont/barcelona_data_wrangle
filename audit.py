@@ -25,14 +25,14 @@ def get_element(osm_file, tags=('node', 'way', 'relation')):
             root.clear()
 
 
-with open(SAMPLE_FILE, 'wb') as output:
+with open(SAMPLE_FILE, 'w') as output:
     output.write('<?xml version="1.0" encoding="UTF-8"?>\n')
     output.write('<osm>\n  ')
 
     # Write every kth top level element
     for i, element in enumerate(get_element(OSM_FILE)):
         if i % k == 0:
-            output.write(ET.tostring(element, encoding='utf-8'))
+            output.write(ET.tostring(element).decode("UTF-8"))
 
     output.write('</osm>')
 
@@ -47,6 +47,9 @@ postcodes = defaultdict (set)
 #Type of streets expected, most of them in Catalan. 
 expected = ["Avinguda", "Carrer", "Carretera","Can", "Cami", "Passeig", "Plaza", "Passatge", "Rambla", 
             "Ronda", "Via", "Travessera", "Torrent", "Baixada", "Castell", "Jardins", "Moll", "Poligono"]
+
+
+
 
 def audit_street_type(street_types, street_name):
     m = street_type_re.search(street_name)
